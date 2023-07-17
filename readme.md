@@ -1,4 +1,4 @@
-# Projeto Cantina Django
+# Projeto Cantina Django (Em construção)
 
 Bem-vindo ao projeto Cantina Django! Este é um projeto para criar um sistema de gerenciamento de cantina escolar usando o framework Django. Com este sistema, você poderá gerenciar itens do cardápio, pedidos dos alunos, estoque e muito mais.
 
