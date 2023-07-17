@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Detalhes da Categoria</h1>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ categoria.nome }}</h5>
+      <p class="card-text">Data de criação: {{ categoria.data_criacao }}</p>
+
+      {% if categoria.foto %}
+        <img src="{{ categoria.foto.url }}" alt="{{ categoria.nome }}" style="max-width: 100%; max-height: 200px;">
+      {% else %}
+        <p>Nenhuma foto disponível.</p>
+      {% endif %}
+
+      <div class="mt-3">
+        <a href="{% url 'categoria_update' categoria.pk %}" class="btn btn-primary">Editar</a>
+        <form action="{% url 'categoria_delete' categoria.pk %}" method="post" style="display: inline-block;">
+          {% csrf_token %}
+          <input type="submit" value="Excluir" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <a href="{% url 'categoria_list' %}" class="btn btn-primary">Voltar para a Lista de Categorias</a>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Criar Pedido</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <fieldset>
+      <legend>Produtos</legend>
+      {% for produto in form.produtos %}
+        <div>
+          {{ produto.tag }}
+          {{ produto.choice_label }}
+          <input type="number" name="{{ produto.html_name }}_quantidade" min="1" max="10" value="1">
+        </div>
+      {% endfor %}
+    </fieldset>
+
+    <input type="hidden" name="{{ form.quantidades.html_name }}" id="{{ form.quantidades.auto_id }}">
+    <input type="submit" value="Salvar" class="btn btn-primary">
+  </form>
+
+  <script>
+    // Atualizar o valor do campo oculto das quantidades antes de enviar o formulário
+    document.querySelector('form').addEventListener('submit', function() {
+      var quantidades = Array.from(document.querySelectorAll('[name$="_quantidade"]')).map(function(input) {
+        return input.value;
+      });
+      document.getElementById('{{ form.quantidades.auto_id }}').value = quantidades.join(',');
+    });
+  </script>
+{% endblock %}

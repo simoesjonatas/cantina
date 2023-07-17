@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- pedidos.html -->
+
+{% for pedido in pedidos %}
+  <div class="card">
+    <h3>Pedido #{{ pedido.id }}</h3>
+    <ul>
+      {% for item in pedido.itempedido_set.all %}
+        <li>{{ item.produto.nome }} ({{ item.quantidade }})</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
+
+{% endblock %}`

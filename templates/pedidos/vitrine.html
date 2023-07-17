@@ -1,0 +1,45 @@
+<!-- vitrine.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="resumo-incremento"></div>
+
+<form id="pedido-form" action="{% url 'cadastrar_pedido' %}" method="post">
+  {% csrf_token %}
+
+  <!-- Exibir a vitrine de produtos -->
+  {% for produto in produtos %}
+    <div class="produto-card">
+      <h3>{{ produto.nome }}</h3>
+      <!-- Exibir informações adicionais do produto, como preço, imagem, etc. -->
+      <button type="button" class="btn btn-primary adicionar-produto" data-produto-id="{{ produto.id }}" data-produto-nome="{{ produto.nome }}">Adicionar</button>
+    </div>
+  {% endfor %}
+
+  <!-- Campos adicionais para o restante das informações do pedido -->
+  <!-- Inclua os campos relevantes, como nome do cliente, endereço, etc. -->
+
+  <!-- Botão de submit para cadastrar o pedido -->
+  <button type="submit" class="btn btn-success">Cadastrar Pedido</button>
+</form>
+
+<script>
+  $(document).ready(function() {
+    $('.adicionar-produto').on('click', function() {
+      var produtoId = $(this).data('produto-id');
+      var produtoNome = $(this).data('produto-nome');
+      adicionarProduto(produtoId, produtoNome);
+    });
+  });
+
+  function adicionarProduto(produtoId, produtoNome) {
+    $('<input>').attr({
+      type: 'hidden',
+      name: 'produtos',
+      value: produtoId
+    }).appendTo('#pedido-form');
+    $('#resumo-incremento').append('<p>' + produtoNome + '</p>');
+  }
+</script>
+{% endblock %}

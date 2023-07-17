@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Listagem de Pedidos</h1>
+
+  <a href="{% url 'pedido_create' %}" class="btn btn-primary mb-3">Criar Pedido</a>
+
+  <ul>
+    {% for pedido in pedidos %}
+      <li><a href="{% url 'pedido_detail' pedido.pk %}">{{ pedido.nome_cliente }}</a></li>
+    {% empty %}
+      <li>Nenhum pedido encontrado.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

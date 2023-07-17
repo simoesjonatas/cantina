@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- pedidos.html -->
+<!-- pedidos.html -->
+
+<div class="row">
+    <div class="col-md-6">
+      <h2>Preparando</h2>
+      {% for pedido in pedidos_preparando %}
+        <div class="card">
+          <h3>Pedido #{{ pedido.id }}</h3>
+          <ul>
+            {% for item in pedido.itempedido_set.all %}
+              <li>{{ item.quantidade }} x {{ item.produto.nome }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  
+    <div class="col-md-6">
+      <h2>Pronto</h2>
+      {% for pedido in pedidos_pronto %}
+        <div class="card">
+          <h3>Pedido #{{ pedido.id }}</h3>
+          <ul>
+            {% for item in pedido.itempedido_set.all %}
+              <li> {{ item.quantidade }} x {{ item.produto.nome }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script>
+    setTimeout(function() {
+      location.reload();
+    }, 5000);
+  </script>
+
+  <!-- <script>
+    $(document).ready(function() {
+      setInterval(function() {
+        atualizarListaPedidos();
+      }, 5000);
+    });
+  
+    function atualizarListaPedidos() {
+      $.ajax({
+        url: "{% url 'listar_pedidos' %}",
+        success: function(data) {
+          $("#pedidos-lista").html(data);
+        },
+        error: function() {
+          console.log("Erro ao atualizar a lista de pedidos.");
+        }
+      });
+    }
+  </script> -->
+  
+  
+{% endblock %}`

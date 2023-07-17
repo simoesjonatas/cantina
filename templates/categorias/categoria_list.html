@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Categorias</h1>
+
+  <div class="d-flex justify-content-end mb-3">
+    <div class="btn-group">
+      <a href="{% url 'categoria_create' %}" class="btn btn-primary">Criar Nova Categoria</a>
+    </div>
+  </div>
+
+  <div id="categoria-view" class="row row-cols-1 row-cols-md-3 g-4">
+    {% for categoria in categorias %}
+      <div class="col categoria-card">
+        <div class="card">
+          {% if categoria.foto %}
+            <img src="{{ categoria.foto.url }}" class="card-img-top img-fluid" alt="{{ categoria.nome }}" style="max-width: 100%; max-height: 200px;">
+          {% else %}
+            <img src="/path/to/placeholder/image.jpg" class="card-img-top" alt="No Image">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ categoria.nome }}</h5>
+            <p class="card-text">Data de criação: {{ categoria.data_criacao }}</p>
+            <a href="{% url 'categoria_detail' categoria.pk %}" class="btn btn-primary">Detalhes</a>
+            <a href="{% url 'categoria_delete' categoria.pk %}" class="btn btn-danger">Excluir</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>Nenhuma categoria encontrada.</p>
+    {% endfor %}
+  </div>
+
+
+{% endblock %}

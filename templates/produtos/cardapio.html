@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <h1>Cardápio</h1>
+
+  <div id="produto-view" class="row row-cols-1 row-cols-md-3 g-4">
+    {% for produto in produtos %}
+      <div class="col produto-card">
+        <div class="card">
+          {% if produto.foto %}
+            <img src="{{ produto.foto.url }}" class="card-img-top img-fluid" alt="{{ produto.nome }}" style="max-width: 100%; max-height: 200px;">
+          {% else %}
+            <img src="/path/to/placeholder/image.jpg" class="card-img-top" alt="No Image">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ produto.nome }} R${{produto.preco}}</h5>
+            <p class="card-text">Categoria: {{ produto.categoria }} </p>
+            <p class="card-text">Quantidade: {{ produto.quantidade_estoque }} </p>
+            <a href="{% url 'produto_detail' produto.pk %}" class="btn btn-primary">Detalhes</a>
+            <a href="{% url 'produto_delete' produto.pk %}" class="btn btn-danger">Excluir</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>Nenhum produto disponivel.</p>
+    {% endfor %}
+  </div>
+
+
+{% endblock %}

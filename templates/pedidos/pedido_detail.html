@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Detalhes do Pedido</h1>
+
+  <p>Nome do Cliente: {{ pedido.nome_cliente }}</p>
+  <p>Status do Pedido: {{ pedido.status_pedido }}</p>
+  <p>Total do Pedido: R$ {{ pedido.total }}</p>
+  <p>Observação: {{ pedido.observacao }}</p>
+  <p>Forma de Pagamento: {{ pedido.pagamento }}</p>
+
+  <a href="{% url 'pedido_update' pedido.pk %}" class="btn btn-primary">Editar</a>
+  <form action="{% url 'pedido_delete' pedido.pk %}" method="post" style="display: inline-block;">
+    {% csrf_token %}
+    <input type="submit" value="Excluir" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este pedido?')">
+  </form>
+{% endblock %}

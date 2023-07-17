@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Detalhes do Produto</h1>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ produto.nome }}</h5>
+      <p class="card-text">Categoria: {{ produto.categoria }}</p>
+      <p class="card-text">Descrição: {{ produto.descricao }}</p>
+      <p class="card-text">Disponivel: 
+        {% if produto.disponivel %}
+          sim
+          {% else %}
+          não
+        {% endif %}
+      </p>
+      <p class="card-text">Quantidade Estoque: {{ produto.quantidade_estoque }}</p>
+      <p class="card-text">Preço: {{ produto.preco }}</p>
+      <p class="card-text">Data de criação: {{ produto.data_criacao }}</p>
+      
+
+
+      {% if produto.foto %}
+        <img src="{{ produto.foto.url }}" alt="{{ produto.nome }}" style="max-width: 100%; max-height: 200px;">
+      {% else %}
+        <p>Nenhuma foto disponível.</p>
+      {% endif %}
+
+      <div class="mt-3">
+        <a href="{% url 'produto_update' produto.pk %}" class="btn btn-primary">Editar</a>
+        <form action="{% url 'produto_delete' produto.pk %}" method="post" style="display: inline-block;">
+          {% csrf_token %}
+          <input type="submit" value="Excluir" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este produto?')">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <a href="{% url 'produto_list' %}" class="btn btn-primary">Voltar para a Lista de Produtos</a>
+{% endblock %}
